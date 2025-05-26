@@ -1,0 +1,77 @@
+﻿@model SmartCookFinal.ModelDTO.ThucDonRequestViewModel
+
+@{
+    ViewData["Title"] = "Nhập chỉ số người dùng";
+}
+
+<h2>Nhập thông tin để tạo thực đơn</h2>
+
+@if (TempData["Message"] != null)
+{
+    <div class="alert alert-success">@TempData["Message"]</div>
+}
+
+<form asp-controller="ThucDon" asp-action="TaoThucDon" method="post">
+
+    <div class="form-group">
+        <label>Họ tên</label>
+        <input asp-for="TenNguoiDung" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label>Giới tính</label>
+        <select asp-for="GioiTinh" class="form-control">
+            <option>Nam</option>
+            <option>Nữ</option>
+        </select>
+    </div>
+    <div class="form-group">
+        <label>Tuổi</label>
+        <input asp-for="Tuoi" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label>Chiều cao (cm)</label>
+        <input asp-for="ChieuCao" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label>Cân nặng (kg)</label>
+        <input asp-for="CanNang" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label>Mức độ hoạt động</label>
+        <select asp-for="MucDoHoatDong" class="form-control">
+            <option value="It">Ít hoạt động</option>
+            <option value="Vua">Hoạt động vừa</option>
+            <option value="Nhieu">Hoạt động nhiều</option>
+        </select>
+    </div>
+    <div class="form-group">
+        <label>Mục tiêu</label>
+        <select asp-for="MucTieu" class="form-control">
+            <option>Giảm cân</option>
+            <option>Giữ cân</option>
+            <option>Tăng cân</option>
+        </select>
+    </div>
+    <div class="form-group">
+        <label>Chế độ ăn</label>
+        <input asp-for="CheDoAn" class="form-control" placeholder="VD: Chay, Keto, Không Gluten..." />
+    </div>
+    <div class="form-group">
+        <label>Dị ứng với món nào?</label>
+        <input asp-for="DiUng" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label>Không thích món nào?</label>
+        <input asp-for="KhongThich" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label>Số bữa mỗi ngày</label>
+        <input asp-for="SoBuaMotNgay" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label>Ngân sách tối đa (VND)</label>
+        <input asp-for="NganSachToiDa" class="form-control" />
+    </div>
+
+    <button type="submit" class="btn btn-primary">Tạo thực đơn</button>
+</form>

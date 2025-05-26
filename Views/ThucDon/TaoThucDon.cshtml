@@ -1,0 +1,66 @@
+﻿@model SmartCookFinal.ModelDTO.ThucDonViewTongHop
+
+@{
+    ViewBag.Title = "Tao Thuc Don";
+    var buaAnTheoLoai = Model.DanhSachMonAn.GroupBy(m => m.LoaiBuaAn);
+}
+
+
+
+<h2>Kết quả chỉ số của bạn</h2>
+
+<table class="table table-bordered">
+    <tr>
+        <th>BMR (Tỷ lệ trao đổi chất cơ bản)</th>
+        <th>TDEE (Lượng calo tiêu hao hàng ngày)</th>
+        <th>Tổng calo sau khi điều chỉnh theo mục tiêu</th>
+        <th>Tổng bữa</th>
+        <th>Lượng calo mỗi bữa ăn</th>
+    </tr>
+    <tr>
+    <td>@Model.KetQua.BMR kcal/ngày</td>
+    <td>@Model.KetQua.TDEE kcal/ngày</td>
+    <td>@Model.KetQua.TongCaloDieuChinh kcal/ngày</td>
+    <td>@Model.KetQua.SoBuaMotNgay</td>
+    <td>@Model.KetQua.CaloMoiBua kcal</td>
+    </tr>
+</table>
+
+
+<h2 class="text-center mt-4 mb-3">Kết Quả Thực Đơn</h2>
+@if (Model.DanhSachMonAn == null || !Model.DanhSachMonAn.Any())
+{
+    <div class="alert alert-warning text-center mt-4">
+        Không tìm thấy món ăn phù hợp với yêu cầu của bạn.
+    </div>
+}
+   
+
+
+else
+{
+    @foreach (var group in Model.DanhSachMonAn.GroupBy(m => m.LoaiBuaAn))
+{
+    <div class="mb-4">
+        <h4 class="text-primary">@group.Key</h4>
+        <div class="row">
+            @foreach (var mon in group)
+            {
+                <div class="col-md-4 mb-3">
+                    <div class="card h-100 shadow-sm">
+                        <img src="@(string.IsNullOrEmpty(mon.UrlHinhAnh) ? "/images/default-food.png" : mon.UrlHinhAnh)" class="card-img-top" alt="@mon.TenMon" style="height:200px; object-fit:cover;">
+                        <div class="card-body">
+                            <h5 class="card-title">@mon.TenMon</h5>
+                            <p class="card-text"><strong>Calories:</strong> @mon.LuongCalo kcal</p>
+                                <p class="card-text">
+                                    <strong>Chi phí:</strong> @(mon.ChiPhiUocTinh ?? 0m).ToString("C") VND
+                                </p>
+
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+}
+}
